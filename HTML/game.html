@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../Styles/gamestyles.css">
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guitar Chord Trainer</title>
+</head>
+<body>
+    <div class="goBack">
+        <a href="index.html" style="font-size: 30px;">Go Back</a>
+    </div>
+  <div class="quiz-container">
+    <h1>Guitar Chord Trainer</h1>
+    <h3>Which diagram shows the <span id="chord-name">C Major</span> chord?</h3>
+    <div class="options" id="options">
+      <!-- Images will be inserted here by JS -->
+    </div>
+    <div id="feedback"></div>
+    <button onclick="generateQuiz()">Next Chord</button>
+  </div>
+
+  <script>
+    const chordData = [
+      {
+        name: "C Major",
+        correctImg: "../Images/C-Major.jpg",
+        options: ["../Images/C-Major.jpg", "../Images/D-Major.jpg", "../Images/G-Major.jpg"]
+      },
+      {
+        name: "G Major",
+        correctImg: "../Images/G-Major.jpg",
+        options: ["../Images/G-Major.jpg", "../Images/C-Major.jpg", "../Images/F-Major.jpg"]
+      },
+      {
+        name: "D Major",
+        correctImg: "../Images/D-Major.jpg",
+        options: ["../Images/F-Major.jpg", "../Images/D-Major.jpg", "../Images/C-Major.jpg"]
+      },
+      {
+        name: "E Major",
+        correctImg: "../Images/E-Major.jpg",
+        options: ["../Images/D-Major.jpg", "../Images/E-Major.jpg", "../Images/F-Major.jpg"]
+      },
+      {
+        name: "F Major",
+        correctImg: "../Images/F-Major.jpg",
+        options: ["../Images/F-Major.jpg", "../Images/E-Major.jpg", "../Images/D-Major.jpg"]
+      },
+      {
+        name: "A Major",
+        correctImg: "../Images/A-Major.jpg",
+        options: ["../Images/C-Major.jpg", "../Images/D-Major.jpg", "../Images/A-Major.jpg"]
+      }
+      // Add more chords here
+    ];
+
+    const chordNameEl = document.getElementById("chord-name");
+    const optionsEl = document.getElementById("options");
+    const feedbackEl = document.getElementById("feedback");
+
+    function generateQuiz() {
+      feedbackEl.textContent = "";
+      const randomChord = chordData[Math.floor(Math.random() * chordData.length)];
+      chordNameEl.textContent = randomChord.name;
+      const shuffledOptions = randomChord.options.sort(() => 0.5 - Math.random());
+
+      optionsEl.innerHTML = "";
+      shuffledOptions.forEach(imgSrc => {
+        const img = document.createElement("img");
+        img.src = imgSrc;
+        img.className = "chord-image";
+        img.onclick = () => {
+          if (imgSrc === randomChord.correctImg) {
+            feedbackEl.textContent = "✅ Correct!";
+          } else {
+            feedbackEl.textContent = "❌ Try again.";
+          }
+        };
+        optionsEl.appendChild(img);
+      });
+    }
+
+    generateQuiz(); // Load first question
+  </script>
+</body>
+</html>
+
+</body>
+</html>
